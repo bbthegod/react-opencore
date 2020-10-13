@@ -1,0 +1,34 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { ContainerState } from './types';
+
+export const initialState: ContainerState = {
+data: [],
+loading: false,
+success: false,
+fail: false,
+};
+
+const {{ camelCase ComponentName }}Slice = createSlice({
+name: '{{ camelCase ComponentName }}',
+initialState,
+reducers: {
+get(state) {
+state.loading = true;
+state.success = false;
+state.fail = false;
+},
+getSuccess(state, action) {
+state.data = action.payload;
+state.loading = false;
+state.success = true;
+state.fail = false;
+},
+getFail(state) {
+state.loading = false;
+state.success = false;
+state.fail = true;
+}
+},
+});
+
+export const { actions, reducer, name: sliceKey } = {{ camelCase ComponentName }}Slice;

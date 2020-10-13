@@ -1,0 +1,26 @@
+import { createSelector } from '@reduxjs/toolkit';
+
+import { RootState } from 'types';
+import { initialState } from './slice';
+
+const selectDomain = (state: RootState) => state.{{ camelCase ComponentName }} || initialState;
+
+export const selectData = createSelector(
+[selectDomain],
+{{ camelCase ComponentName }}State => {{ camelCase ComponentName }}State.data,
+);
+
+export const selectLoading = createSelector(
+[selectDomain],
+{{ camelCase ComponentName }}State => {{ camelCase ComponentName }}State.loading,
+);
+
+export const selectSuccess = createSelector(
+[selectDomain],
+{{ camelCase ComponentName }}State => {{ camelCase ComponentName }}State.success,
+);
+
+export const selectFail = createSelector(
+[selectDomain],
+{{ camelCase ComponentName }}State => {{ camelCase ComponentName }}State.fail,
+);

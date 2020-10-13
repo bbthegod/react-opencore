@@ -1,0 +1,39 @@
+import React, { useEffect, useState } from 'react';
+{{#if wantHeaders}}
+import { Helmet } from 'react-helmet-async';
+{{/if}}
+
+{{#if wantReduxSaga}}
+import { useSelector, useDispatch } from 'react-redux';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { reducer, sliceKey, actions } from './slice';
+import { selectData } from './selectors';
+import { {{ camelCase ComponentName }}Saga } from './saga';
+{{/if}}
+
+interface Props {}
+
+export function {{ properCase ComponentName }}(props: Props) {
+{{#if wantReduxSaga}}
+useInjectReducer({ key: sliceKey, reducer: reducer });
+useInjectSaga({ key: sliceKey, saga: {{ camelCase ComponentName }}Saga });
+
+const data = useSelector(selectData);
+const dispatch = useDispatch();
+useEffect(() => {
+dispatch(actions.get());
+}, [dispatch]);
+console.log(data)
+{{/if}}
+
+return (
+<>
+  {{#if wantHeaders}}
+  <Helmet>
+    <title>{{properCase ComponentName}}</title>
+  </Helmet>
+  {{/if}}
+  <h2>{{properCase ComponentName}} right here !</h2>
+</>
+);
+};
