@@ -1,15 +1,14 @@
-import { Actions, PlopGenerator } from 'node-plop';
+import { Actions } from 'node-plop';
 import path from 'path';
 import { componentExists } from '../utils';
 
 export enum ComponentProptNames {
   'ComponentName' = 'ComponentName',
-  'wantMemo' = 'wantMemo',
   'wantLoadable' = 'wantLoadable',
 }
 const componentsPath = path.join(__dirname, '../../../src/app/components');
 
-export const componentGenerator: PlopGenerator = {
+export const componentGenerator = {
   description: 'Add an unconnected component',
   prompts: [
     {
@@ -26,12 +25,6 @@ export const componentGenerator: PlopGenerator = {
 
         return 'The name is required';
       },
-    },
-    {
-      type: 'confirm',
-      name: ComponentProptNames.wantMemo,
-      default: false,
-      message: 'Do you want to wrap your component in React.memo?',
     },
     {
       type: 'confirm',
