@@ -1,4 +1,4 @@
-import { Actions, PlopGenerator } from 'node-plop';
+import { Actions } from 'node-plop';
 import path from 'path';
 import { containerExists } from '../utils';
 
