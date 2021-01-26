@@ -1,0 +1,24 @@
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { request } from 'utils/request';
+import { {{ camelCase sliceName }}Actions as actions } from '.';
+
+export function* get() {
+try {
+const respone = yield call(
+request,
+'https://jsonplaceholder.typicode.com/posts',
+{ method: 'GET' },
+);
+if (respone) {
+yield put(actions.getSuccess(respone));
+} else {
+yield put(actions.getFailures());
+}
+} catch (err) {
+yield put(actions.getFailures());
+}
+}
+
+export function* {{ camelCase sliceName }}Saga() {
+yield takeLatest(actions.get.type, get);
+}

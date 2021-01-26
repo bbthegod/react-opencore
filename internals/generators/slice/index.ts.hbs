@@ -1,0 +1,49 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from 'utils/@reduxjs/toolkit';
+{{#if wantSaga}}
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { {{ camelCase sliceName }}Saga } from './saga';
+{{else}}
+import { useInjectReducer } from 'utils/redux-injectors';
+{{/if}}
+import { {{ properCase sliceName }}State } from './types';
+
+export const initialState: {{ properCase sliceName }}State = {
+data: [],
+loading: false,
+success: false,
+failures: false,
+};
+
+const slice = createSlice({
+name: '{{ camelCase sliceName }}',
+initialState,
+reducers: {
+get(state) {
+state.loading = true;
+state.success = false;
+state.failures = false;
+},
+getSuccess(state, action) {
+state.data = action.payload;
+state.loading = false;
+state.success = true;
+state.failures = false;
+},
+getFailures(state) {
+state.loading = false;
+state.success = false;
+state.failures = true;
+},
+},
+});
+
+export const { actions: {{ camelCase sliceName }}Actions } = slice;
+
+export const use{{ properCase sliceName }}Slice = () => {
+useInjectReducer({ key: slice.name, reducer: slice.reducer });
+{{#if wantSaga}}
+useInjectSaga({ key: slice.name, saga: {{ camelCase sliceName }}Saga });
+{{/if}}
+return { actions: slice.actions };
+};
