@@ -17,6 +17,6 @@ export function HomePage(props: Props) {
   console.log(data);
   useEffect(() => {
     dispatch(actions.get());
-  }, []);
+  }, [actions, dispatch]);
   return <h1>Hi HomePage </h1>;
 }

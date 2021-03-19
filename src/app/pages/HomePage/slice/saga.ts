@@ -4,11 +4,10 @@ import { homePageActions as actions } from '.';
 
 export function* get() {
   try {
-    const respone = yield call(
-      request,
-      'https://jsonplaceholder.typicode.com/posts',
-      { method: 'GET' },
-    );
+    const respone = yield call(request, {
+      url: 'https://jsonplaceholder.typicode.com/posts',
+      method: 'GET',
+    });
     if (respone) {
       yield put(actions.getSuccess(respone));
     } else {

@@ -1,20 +1,21 @@
+import axios, { AxiosResponse } from 'axios';
 export class ResponseError extends Error {
-  public response: Response;
+  public response: AxiosResponse;
 
-  constructor(response: Response) {
+  constructor(response: AxiosResponse) {
     super(response.statusText);
     this.response = response;
   }
 }
 
-function parseJSON(response: Response) {
+function parseJSON(response: AxiosResponse) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  return response.json();
+  return response.data;
 }
 
-function checkStatus(response: Response) {
+function checkStatus(response: AxiosResponse) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -23,11 +24,9 @@ function checkStatus(response: Response) {
   throw error;
 }
 
-export async function request(
-  url: string,
-  options?: RequestInit,
-): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options);
+export async function request(payload) {
+  const instance = axios.create();
+  const fetchResponse = await instance(payload);
   const response = checkStatus(fetchResponse);
   return parseJSON(response);
 }
