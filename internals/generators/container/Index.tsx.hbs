@@ -1,0 +1,22 @@
+/*
+*
+* {{ properCase containerName }}
+*
+*/
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { selectData } from './slice/selectors';
+import { actions } from './slice';
+
+interface Props {}
+
+export default function {{ properCase containerName }}(props: Props) {
+    const data = useSelector(selectData);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(actions.get());
+    }, [dispatch]);
+    console.log(data);
+    return <h1>Hi {{ properCase containerName }} </h1>;
+}
