@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -7,9 +7,9 @@ import App from 'app';
 import { configureAppStore } from 'store/configureStore';
 
 const store = configureAppStore();
-const MOUNT_NODE = document.getElementById('root') as HTMLElement;
+const root = createRoot(document.getElementById('root')!);
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <HelmetProvider>
       <React.StrictMode>
@@ -17,5 +17,4 @@ ReactDOM.render(
       </React.StrictMode>
     </HelmetProvider>
   </Provider>,
-  MOUNT_NODE,
 );

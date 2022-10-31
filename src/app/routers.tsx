@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom';
-import PrivateRoute from 'app/components/PrivateRoute/loadable';
+import MainLayout from 'app/components/MainLayout/loadable';
 import NotFoundPage from 'app/components/NotFoundPage/loadable';
 import HomePage from 'app/containers/HomePage/loadable';
 
@@ -7,7 +7,7 @@ const routers = [
   //Router for authentication
   {
     path: '/',
-    element: <PrivateRoute />,
+    element: <MainLayout />,
     children: [{ path: '/', element: <HomePage /> }],
   },
   //Router for public

@@ -1,5 +1,4 @@
-import { useEffect, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
 import CryptoJS from 'crypto-js';
 
 export function decrypt() {
@@ -14,19 +13,15 @@ export function decrypt() {
 }
 
 export function useAuth() {
-  const [auth, setAuth] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
+  const auth = useMemo(() => {
     const data = decrypt();
     if (data) {
-      setAuth(JSON.parse(data));
-    } else {
-      navigate('/');
+      return JSON.parse(data);
     }
-  }, [navigate]);
+    return null;
+  }, []);
 
-  const setDataToStore = useCallback((data: AuthStorage) => {
+  const save = useCallback((data: AuthStorage) => {
     try {
       const auth = CryptoJS.TripleDES.encrypt(JSON.stringify(data), process.env.REACT_APP_SECRET_KEY).toString();
       if (auth) {
@@ -37,5 +32,5 @@ export function useAuth() {
     }
   }, []);
 
-  return [auth, setDataToStore];
+  return { auth, save };
 }
